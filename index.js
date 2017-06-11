@@ -323,7 +323,7 @@ ICloud.prototype.getDevices = function (callback) {
 
     if (response.body) {
       self.resfindme = response.body;
-
+      debug("Response :" + JSON.stringify(self.resfindme));
       debug("Discovered " + self.resfindme.content.length + " Devices on iCloud Account");
       return callback(null, response.body.content);
     }
