@@ -302,6 +302,7 @@ ICloud.prototype.getDevices = function (callback) {
   var options = {
     method: "POST",
     url:  "/fmipservice/client/web/initClient",
+    timeout: 20000,
     json: {
       "clientContext": {
         "appName": self.options.appName,
