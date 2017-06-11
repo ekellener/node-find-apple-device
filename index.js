@@ -165,6 +165,7 @@ ICloud.prototype._icloudrequest = function (roption, webservicename, callback) {
     // If not, login first, then process request.
     self._login(function (err, msg) {
       if (err) {
+        debug("Unable to populate reslogin: "+msg);
         return callback(err);
       } else {
         return processCloudRequest() ;
@@ -318,14 +319,15 @@ ICloud.prototype.getDevices = function (callback) {
   self._icloudrequest(options, "findme", function (err, response) {
     var matchedreminders = [];
     if (err) {
+      debug("getDevices(): err: "+err);
       return callback(err, null);
     }
     // Ok... good request, process response.
 
     if (response.body) {
       self.resfindme = response.body;
-      debug("Request :" + JSON.stringify(options));
-      debug("Response :" + JSON.stringify(self.resfindme.content));
+      debug("Request getDevices(): " + JSON.stringify(options));
+      debug("Response getDevices(): " + JSON.stringify(self.resfindme.content));
    //   debug("Discovered " + self.resfindme.content.length + " Devices on iCloud Account");
       return callback(null, response.body.content);
     }
