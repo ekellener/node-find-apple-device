@@ -314,7 +314,7 @@ ICloud.prototype.getDevices = function (callback) {
       }
     }
   };
-
+   debug("Request :" + JSON.stringify(options));
   self._icloudrequest(options, "findme", function (err, response) {
     var matchedreminders = [];
     if (err) {
@@ -324,7 +324,8 @@ ICloud.prototype.getDevices = function (callback) {
 
     if (response.body) {
       self.resfindme = response.body;
-      debug("Response :" + JSON.stringify(self.resfindme));
+      debug("Request :" + JSON.stringify(options));
+      debug("Response :" + JSON.stringify(self.resfindme.content));
       debug("Discovered " + self.resfindme.content.length + " Devices on iCloud Account");
       return callback(null, response.body.content);
     }
