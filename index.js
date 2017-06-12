@@ -94,7 +94,7 @@ ICloud.prototype._login = function (callback) {
       debug("Error Logging In", body);
       return callback("Unable to login: HTTP:"+response.statusCode,null);
     } else {
-      debug("Successfully Logged In!");
+      debug("Successfully Logged In: login:  "+JSON.stringify(response));
       self.reslogin = response;
       callback(null, response);
     }
@@ -146,7 +146,7 @@ ICloud.prototype._icloudrequest = function (roption, webservicename, callback) {
             return callback(err);
           }
         }
-        debug("Successfully Initialized Client");
+        debug("Successfully Initialized Client: icloudrequest:  "+  JSON.stringify(body));
 
         if (body) {
           debug("Discovered " + body.length + " response on iCloud Account");
@@ -235,7 +235,7 @@ ICloud.prototype.addReminder = function (reminder, callback) {
       if (_.isFunction(callback)) return callback(err);
     }
     if (response.body) {
-      debug("Successfully Initialized Client");
+      debug("Successfully Initialized Client: Add Reminder");
       self.ChangeSetupdates = response.body.ChangeSet.updates;
 
     } else {
@@ -292,7 +292,6 @@ ICloud.prototype.getReminders = function (collectionname, callback) {
 
 ICloud.prototype.getDevices = function (callback) {
   debugM("-> getDevices()");
-  var self = this;
 
   var self = this;
 
@@ -327,7 +326,7 @@ ICloud.prototype.getDevices = function (callback) {
     if (response.body) {
       self.resfindme = response.body;
       debug("Request getDevices(): " + JSON.stringify(options));
-      debug("Response getDevices(): " + JSON.stringify(self.resfindme.content));
+      debug("Response getDevices(): " + JSON.stringify(self.resfindme));
    //   debug("Discovered " + self.resfindme.content.length + " Devices on iCloud Account");
       return callback(null, response.body.content);
     }
@@ -377,7 +376,7 @@ ICloud.prototype.lostDevice = function (deviceId, callNumber, text, emailUpdates
       if (_.isFunction(callback)) return callback(err);
     }
     if (response.body) {
-      debug("Successfully Initialized Client");
+      debug("Successfully Initialized Client: lostDevice:  "+ response.body.content[0]);
       self.resfindmelocked = response.body.content[0];
 
     } else {
