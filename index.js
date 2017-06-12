@@ -150,6 +150,7 @@ ICloud.prototype._icloudrequest = function (roption, webservicename, callback) {
 
         if (body) {
           debug("Request options:"+JSON.stringify(options));
+          debug("Response full: "+JSON.stringify(response));
           debug("Response: body: (" + body + ")");
           debug("Response Status: "+ response && response.statusCode);
         } else {
@@ -328,7 +329,7 @@ ICloud.prototype.getDevices = function (callback) {
     if (response.body) {
       self.resfindme = response.body;
       debug("Request getDevices(): " + JSON.stringify(options));
-      debug("Response getDevices(): " + JSON.stringify(self.resfindme));
+      debug("Response getDevices(): " + JSON.stringify(response));
    //   debug("Discovered " + self.resfindme.content.length + " Devices on iCloud Account");
       return callback(null, response.body.content);
     }
