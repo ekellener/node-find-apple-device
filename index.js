@@ -149,7 +149,7 @@ ICloud.prototype._icloudrequest = function (roption, webservicename, callback) {
         debug("Successfully Initialized Client: icloudrequest:  "+  JSON.stringify(body));
 
         if (body) {
-          debug("Discovered " + body.length + " response on iCloud Account");
+          debug("Request:"+JSON.stringify(options)+" Response: body: (" + body + ")+ Status: "+ response && response.statusCode+ ")  on iCloud Account");
         } else {
           debug("Could not find any response data on iCloud Account. Invalid body string", body);
         }
