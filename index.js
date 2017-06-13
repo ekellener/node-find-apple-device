@@ -1,5 +1,6 @@
 var FileCookieStore = require('tough-cookie-filestore');
 var request = require('request');
+require('request-debug')(request);
 var _ = require('underscore');
 var uuid = require('node-uuid');
 var fs = require('fs');
@@ -70,7 +71,7 @@ var ICloud = function (username, password, options) {
 
 ICloud.prototype._login = function (callback) {
   debugM("-> login");
-  debug("Logging in to iCloud", {username: this.username});
+
 
   // References to this can get messed up, so keep a copy of it
   var self = this;
@@ -86,6 +87,7 @@ ICloud.prototype._login = function (callback) {
   };
 
   self.r(options, function (err, response, body) {
+    debug("Issued Login request..");
     if (err) {
       debug("Error processing HTTP request", err);
       if (_.isFunction(callback)) return callback(err);
@@ -94,12 +96,14 @@ ICloud.prototype._login = function (callback) {
       debug("Error Logging In", body);
       return callback("Unable to login: HTTP:"+response.statusCode,null);
     } else {
+
       debug("Successfully Logged In: login:  "+JSON.stringify(response));
       self.reslogin = response;
       callback(null, response);
     }
 
   });
+  debug("completed request to log-in")
 };
 
 
@@ -113,7 +117,6 @@ ICloud.prototype._login = function (callback) {
 ICloud.prototype._icloudrequest = function (roption, webservicename, callback) {
 
   debugM("-> " + webservicename);
-  debug("Logging in to iCloud", {username: this.username});
 
   // References to this can get messed up, so keep a copy of it
   var self = this;
@@ -166,11 +169,13 @@ ICloud.prototype._icloudrequest = function (roption, webservicename, callback) {
   // Has the iCloud instance been initialized and been populated w/ data?
   if (!self.reslogin) {
     // If not, login first, then process request.
+    debug("not logged in..trying to login");
     self._login(function (err, msg) {
       if (err) {
         debug("Unable to populate reslogin: "+msg);
         return callback(err);
       } else {
+        debug("Issued login: err :msg"+ err +" msg: "+msg+ "reslogin: "+self.reslogin)
         return processCloudRequest() ;
       }
     });
@@ -317,7 +322,7 @@ ICloud.prototype.getDevices = function (callback) {
       }
     }
   };
-   debug("Request :" + JSON.stringify(options));
+
   self._icloudrequest(options, "findme", function (err, response) {
     var matchedreminders = [];
     if (err) {
