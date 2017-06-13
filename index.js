@@ -146,7 +146,7 @@ ICloud.prototype._icloudrequest = function (roption, webservicename, callback) {
             return callback(err);
           }
         }
-        debug("Successfully Initialized Client: icloudrequest:  "+  JSON.stringify(body));
+        debug("Successfully Initialized Client: icloudrequest:  "+  JSON.stringify(response));
 
         if (body) {
           debug("Request options:"+JSON.stringify(options));
