@@ -14,7 +14,8 @@ var ICloud = function (username, password, options) {
   this.options = _.extendOwn({
     credentialsFile: __dirname + '/.credentials.json',
     cookieFile: __dirname + '/cookies.json',
-    timeZone: require('system-timezone')() || 'US/Eastern',
+  //  timeZone: require('system-timezone')() || 'US/Eastern',
+    timeZone: 'US/Pacific',
     appName: "iCloud Find (Web)",
     appVersion: "2.0",
     apiVersion: "3.0",
